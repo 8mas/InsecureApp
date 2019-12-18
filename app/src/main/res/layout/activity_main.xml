@@ -10,36 +10,12 @@
         android:id="@+id/hardcodedPWTextField"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="140dp"
+        android:layout_marginTop="84dp"
         android:ems="10"
         android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <EditText
-        android:id="@+id/sharedPrefPWTextField"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPassword"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/hardcodedPWTextField"
-        app:layout_constraintVertical_bias="0.181" />
-
-    <EditText
-        android:id="@+id/logcatPWTextField"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPassword"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/hardcodedPWTextField"
-        app:layout_constraintVertical_bias="0.433" />
 
     <TextView
         android:id="@+id/textView2"
@@ -53,6 +29,18 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0" />
 
+    <EditText
+        android:id="@+id/sharedPrefPWTextField"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPassword"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/hardcodedPWTextField"
+        app:layout_constraintVertical_bias="0.087" />
+
     <TextView
         android:id="@+id/textView3"
         android:layout_width="142dp"
@@ -64,6 +52,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/hardcodedPWTextField"
         app:layout_constraintVertical_bias="1.0" />
+
+    <EditText
+        android:id="@+id/logcatPWTextField"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPassword"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/hardcodedPWTextField"
+        app:layout_constraintVertical_bias="0.269" />
 
     <TextView
         android:id="@+id/textView4"
@@ -78,27 +78,39 @@
         app:layout_constraintVertical_bias="1.0" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/httpRequestButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Send Request"
+        android:text="Send HTTP Request"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/logcatPWTextField" />
+        app:layout_constraintTop_toBottomOf="@+id/logcatPWTextField"
+        app:layout_constraintVertical_bias="0.13" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/httpsRequstButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:clickable="true"
-        android:text="HiddenButton"
-        android:visibility="invisible"
+        android:text="Send HTTPS Request"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.049"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.036" />
+        app:layout_constraintTop_toBottomOf="@+id/logcatPWTextField"
+        app:layout_constraintVertical_bias="0.325" />
+
+    <Button
+        android:id="@+id/httpsPinningRequestButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Send Pinned HTTPS Request"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/logcatPWTextField"
+        app:layout_constraintVertical_bias="0.506" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
