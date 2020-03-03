@@ -17,7 +17,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
-import com.example.cinsects.HttpRequests.VolleyBasedPinning.VolleyRequestQueue;
+import com.example.cinsects.HttpRequests.VolleyBasedPinning.VolleyHttpRequest;
 
 import java.util.UUID;
 
@@ -27,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
     private EditText hardcodedPw;
     private EditText sharedPrefPw;
     private EditText logcatPw;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,8 +35,7 @@ public class MainActivity extends AppCompatActivity {
         Context context = getApplicationContext();
 
         // Create Requests queues
-        final VolleyRequestQueue pinningQueue = new VolleyRequestQueue(context, true);
-        final VolleyRequestQueue noPinningQueue = new VolleyRequestQueue(context, false);
+        final VolleyHttpRequest volleyHttpRequest = new VolleyHttpRequest(context);
 
 
         // Shared Preference
@@ -123,7 +123,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 StringRequest stringRequest = generateHttpGetRequest("http://httpbin.org/get");
-                noPinningQueue.addToRequestQueue(stringRequest);
+                volleyHttpRequest.addToRequestQueue(stringRequest, false);
             }
         });
 
@@ -131,7 +131,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 StringRequest stringRequest = generateHttpGetRequest("https://httpbin.org/get");
-                noPinningQueue.addToRequestQueue(stringRequest);
+                volleyHttpRequest.addToRequestQueue(stringRequest, false);
             }
         });
 
@@ -139,10 +139,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 StringRequest stringRequest = generateHttpGetRequest("https://httpbin.org/get");
-                pinningQueue.addToRequestQueue(stringRequest);
+                volleyHttpRequest.addToRequestQueue(stringRequest, true);
             }
         });
     }
+
 
     private StringRequest generateHttpGetRequest(final String url) {
         return new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {

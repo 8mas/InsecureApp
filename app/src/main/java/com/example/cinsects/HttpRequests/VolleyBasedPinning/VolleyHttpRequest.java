@@ -2,21 +2,31 @@ package com.example.cinsects.HttpRequests.VolleyBasedPinning;
 
 import android.content.Context;
 import android.util.Log;
+
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.android.volley.toolbox.HurlStack;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.cinsects.HttpRequests.PinningBrokenException;
+
+import java.util.function.BiFunction;
+
 import javax.net.ssl.SSLSocketFactory;
 import static com.example.cinsects.OwnUtils.BackgroundToast.backgroundToast;
 
-public class VolleyRequestQueue {
-    private RequestQueue mRequestQueue;
-    private static Context mCtx;
+public class VolleyHttpRequest {
+    private RequestQueue pinningQueue;
+    private RequestQueue normalQueue;
+    private Context mCtx;
 
 
-    public VolleyRequestQueue(Context context, boolean usePinning) {
+    public VolleyHttpRequest(Context context) {
         mCtx = context;
-        mRequestQueue = getRequestQueue(usePinning);
+        normalQueue = getRequestQueue(false);
+        pinningQueue = getRequestQueue(true);
     }
 
 
@@ -27,17 +37,18 @@ public class VolleyRequestQueue {
         if (pinning) {
             try {
                 SSLSocketFactory sslSF = SSLSocketFactoryPinning.getSSLSocketFactory(mCtx);
-                mRequestQueue = Volley.newRequestQueue(mCtx.getApplicationContext(), new HurlStack(null, sslSF));
-                Log.i("SSLSecurity", "App uses certificate pinning");
+                pinningQueue = Volley.newRequestQueue(mCtx.getApplicationContext(), new HurlStack(null, sslSF));
+                Log.i("SSLSecurity", "certificate pinning ok");
 
             } catch (Exception e) {
                 e.printStackTrace();
-                Log.w("SSLSecurity", "App does not use certificate pinning");
+                Log.w("SSLSecurity", "no certificate pinning, but was requested");
                 backgroundToast(mCtx, "Error creating volley request queue with certificate pinning");
             }
-            return mRequestQueue;
+            return pinningQueue;
         }
         else {
+            Log.i("SSLSecurity", "no certificate pinning ok");
             return Volley.newRequestQueue(mCtx.getApplicationContext());
         }
 
@@ -48,8 +59,11 @@ public class VolleyRequestQueue {
      * @param req The request
      * @param <T> The type of the request
      */
-    public <T> void addToRequestQueue(Request<T> req) {
-        mRequestQueue.add(req);
+    public <T> void addToRequestQueue(Request<T> req, boolean pinning) {
+        if (pinning) {
+            pinningQueue.add(req);
+        } else {
+            normalQueue.add(req);
+        }
     }
-
 }
